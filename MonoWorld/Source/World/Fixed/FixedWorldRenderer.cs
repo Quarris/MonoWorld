@@ -10,7 +10,7 @@ namespace MonoWorld.World {
         public void Draw(SpriteBatch batch, ContentManager content, IWorld world, Vector2 scale) {
             FixedWorld fixedWorld = (FixedWorld) world;
             WorldCamera camera = fixedWorld.GetCamera();
-            batch.Begin(transformMatrix: camera.TransformMatrix);
+            batch.Begin();
             this.DrawBackground(batch, content, fixedWorld, scale);
             for (int y = 0; y < fixedWorld.Size.Y; y++) {
                 for (int x = 0; x < fixedWorld.Size.X; x++) {

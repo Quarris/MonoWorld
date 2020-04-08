@@ -33,8 +33,10 @@ namespace MonoGame {
         }
 
         public override void Draw(SpriteBatch batch, ContentManager content, Vector2 drawPos, Vector2 scale) {
-
-            Vector2 lastDrawPos = this.LastPosition.ToVector2() * scale + new Vector2(BoardRenderer.GridThickness) * (this.Position.ToVector2() + Vector2.One) + (BoardRenderer.ScreenSize - ((Board)this.World).Size.ToVector2())/2;
+            Vector2 lastDrawPos =
+                this.LastPosition.ToVector2() * scale
+                + new Vector2(BoardRenderer.GridThickness) * (this.LastPosition.ToVector2() + Vector2.One)
+                + (BoardRenderer.ScreenSize - ((Board)this.World).Size.ToVector2() * (scale + new Vector2(BoardRenderer.GridThickness)))/2;
             Vector2 lerped = Vector2.Lerp(lastDrawPos, drawPos, this.Animation / MaxAnimation);
             batch.FillRectangle(lerped, scale, Color.Lerp(Color.Black, Color.White, 1 / (float) Math.Log(this.Value, 2)));
             batch.DrawCenteredString(content.Load<SpriteFont>("DefaultFont"), this.Value.ToString(), lerped + scale / 2f, 0.1f, Color.Black, true, true);
