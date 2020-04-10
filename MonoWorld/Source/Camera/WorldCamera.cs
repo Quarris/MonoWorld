@@ -6,7 +6,7 @@ namespace MonoWorld.Camera {
     public class WorldCamera {
 
         // World Position based on the center of the Camera
-        public Vector2 Position = new Vector2(0, 128);
+        public Vector2 Position;
 
         private float scale = 1;
         public float Scale {
