@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net462</TargetFramework>
-        <RootNamespace>MonoWorld</RootNamespace>
+        <RootNamespace>MonoWorld.Demo</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

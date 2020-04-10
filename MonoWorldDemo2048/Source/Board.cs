@@ -8,10 +8,10 @@ using MLEM.Misc;
 using MonoWorld.Camera;
 using MonoWorld.World;
 
-namespace MonoGame {
+namespace MonoWorld.Demo {
     public class Board : FixedWorld {
 
-        public Board(int size) : base(size, size, new WorldCamera()) { }
+        public Board(int size, WorldCamera camera) : base(size, size, camera) { }
 
         public void Swipe(GameTime gameTime, Direction2 direction) {
             if (!direction.IsAdjacent()) {

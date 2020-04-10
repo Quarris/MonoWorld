@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MLEM.Misc;
 using MLEM.Startup;
-using MonoWorld;
+using MonoWorld.Camera;
 
-namespace MonoGame {
+namespace MonoWorld.Demo {
     public class WorldInqDemo : MlemGame {
 
         public static WorldInqDemo Inst { get; private set;}
@@ -23,7 +23,8 @@ namespace MonoGame {
 
         protected override void Initialize() {
             base.Initialize();
-            this.Board = new Board(7);
+            WorldCamera camera = new WorldCamera(this.GraphicsDevice);
+            this.Board = new Board(7, camera);
             this.Board.Reset();
         }
 
@@ -34,7 +35,7 @@ namespace MonoGame {
 
         protected override void DoUpdate(GameTime gameTime) {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+                this.Exit();
 
             if (Input.IsKeyPressed(Keys.R)) {
                 this.Board.Reset();
@@ -60,7 +61,7 @@ namespace MonoGame {
         }
 
         protected override void DoDraw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             BoardRenderer renderer = new BoardRenderer();
 

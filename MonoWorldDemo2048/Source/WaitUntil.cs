@@ -1,7 +1,7 @@
 using System;
 using Coroutine;
 
-namespace MonoGame {
+namespace MonoWorld.Demo {
     public class WaitUntil : IWait {
 
         private Func<bool> until;

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace MonoGame {
+namespace MonoWorld.Demo {
     public static class Extensions {
 
         public static Point Abs(this Point point) {

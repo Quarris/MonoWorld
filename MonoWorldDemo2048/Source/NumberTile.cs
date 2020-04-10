@@ -6,11 +6,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MLEM.Extensions;
 using MonoGame.Extended;
-using MonoWorld;
 using MonoWorld.Tiles;
 using MonoWorld.World;
 
-namespace MonoGame {
+namespace MonoWorld.Demo {
     public class Number : Tile {
         public Point LastPosition;
         public float Animation;
@@ -36,7 +35,7 @@ namespace MonoGame {
             Vector2 lastDrawPos =
                 this.LastPosition.ToVector2() * scale
                 + new Vector2(BoardRenderer.GridThickness) * (this.LastPosition.ToVector2() + Vector2.One)
-                + (BoardRenderer.ScreenSize - ((Board)this.World).Size.ToVector2() * (scale + new Vector2(BoardRenderer.GridThickness)))/2;
+                - ((Board)this.World).Size.ToVector2() * (scale + new Vector2(BoardRenderer.GridThickness))/2;
             Vector2 lerped = Vector2.Lerp(lastDrawPos, drawPos, this.Animation / MaxAnimation);
             batch.FillRectangle(lerped, scale, Color.Lerp(Color.Black, Color.White, 1 / (float) Math.Log(this.Value, 2)));
             batch.DrawCenteredString(content.Load<SpriteFont>("DefaultFont"), this.Value.ToString(), lerped + scale / 2f, 0.1f, Color.Black, true, true);
