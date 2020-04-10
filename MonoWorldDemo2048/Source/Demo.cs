@@ -13,7 +13,6 @@ namespace MonoWorld.Demo {
         public static WorldInqDemo Inst { get; private set;}
 
         public Board Board;
-        public SpriteFont Font;
 
         public static Random Random = new Random((int) Stopwatch.GetTimestamp());
 
@@ -23,14 +22,12 @@ namespace MonoWorld.Demo {
 
         protected override void Initialize() {
             base.Initialize();
-            WorldCamera camera = new WorldCamera(this.GraphicsDevice);
-            this.Board = new Board(7, camera);
+            int boardSize = 7;
+            WorldCamera camera = new WorldCamera(this.GraphicsDevice) {
+                Scale = 5f/boardSize
+            };
+            this.Board = new Board(boardSize, camera);
             this.Board.Reset();
-        }
-
-        protected override void LoadContent() {
-            base.LoadContent();
-            this.Font = LoadContent<SpriteFont>("DefaultFont");
         }
 
         protected override void DoUpdate(GameTime gameTime) {
