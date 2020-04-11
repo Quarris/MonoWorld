@@ -2,9 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoWorld.Camera;
-using MonoWorld.Tiles;
 
-namespace MonoWorld.World {
+namespace MonoWorld.World.Fixed {
     public abstract class FixedWorldRenderer : IWorldRenderer {
 
         public void Draw(SpriteBatch batch, ContentManager content, IWorld world, Vector2 scale) {
