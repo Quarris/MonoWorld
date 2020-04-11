@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MLEM.Extensions;
 using MonoGame.Extended;
-using MonoWorld.Tiles;
 using MonoWorld.World;
 
 namespace MonoWorld.Demo {

@@ -7,6 +7,7 @@ using MLEM.Extensions;
 using MLEM.Misc;
 using MonoWorld.Camera;
 using MonoWorld.World;
+using MonoWorld.World.Fixed;
 
 namespace MonoWorld.Demo {
     public class Board : FixedWorld {

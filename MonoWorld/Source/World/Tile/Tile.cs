@@ -1,9 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoWorld.World;
 
-namespace MonoWorld.Tiles {
+namespace MonoWorld.World {
     public abstract class Tile {
 
         public static Point InvalidPoint = new Point(int.MaxValue, int.MaxValue);

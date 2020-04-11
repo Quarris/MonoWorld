@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using MonoWorld.Camera;
 using MonoWorld.Exceptions;
-using MonoWorld.Tiles;
 
 namespace MonoWorld.World {
     public interface IWorld {

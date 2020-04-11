@@ -2,8 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using MonoWorld.Tiles;
 using MonoWorld.World;
+using MonoWorld.World.Fixed;
 
 namespace MonoWorld.Demo {
     public class BoardRenderer : FixedWorldRenderer {

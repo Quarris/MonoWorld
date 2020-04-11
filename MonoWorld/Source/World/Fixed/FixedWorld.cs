@@ -3,9 +3,8 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoWorld.Camera;
 using MonoWorld.Exceptions;
-using MonoWorld.Tiles;
 
-namespace MonoWorld.World {
+namespace MonoWorld.World.Fixed {
     public abstract class FixedWorld : IWorld {
         public Point Size;
         private readonly Tile[,] tiles;
