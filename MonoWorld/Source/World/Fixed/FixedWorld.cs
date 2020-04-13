@@ -1,63 +1,54 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using MonoWorld.Camera;
-using MonoWorld.Exceptions;
 
 namespace MonoWorld.World.Fixed {
     public abstract class FixedWorld : IWorld {
         public Point Size;
-        private readonly Tile[,] tiles;
-        private readonly WorldCamera camera;
 
-        public FixedWorld(int width, int height, WorldCamera camera) {
-            this.Size = new Point(width, height);
-            this.tiles = new Tile[width, height];
-            this.camera = camera;
+        public WorldCamera Camera { get; }
+        public Dictionary<string, TileLayer> Layers { get; }
+        public TileStorage Tiles { get; }
+
+        public FixedWorld(Point size, WorldCamera camera) {
+            this.Size = size;
+
+            this.Camera = camera;
+            this.Layers = new Dictionary<string, TileLayer>();
+            this.Tiles = new TileStorage(this);
+
+            this["Main"] = new TileLayer("Main", 0);
         }
 
-        public T GetTile<T>(Point position) where T : Tile {
-            try {
-                return (T) this.tiles[position.X, position.Y];
-            } catch {
-                throw new WorldException($"Illegal Get Tile at {position}");
-            }
+        public void AddLayer(TileLayer layer) {
+            this.Layers[layer.Name] = layer;
+            this.Tiles[layer] = new Tile[this.Size.X, this.Size.Y];
         }
 
-        public List<T> AllTiles<T>() where T : Tile {
-            return this.tiles.Cast<T>().Where(tile => tile != null).ToList();
+        public T GetTile<T>(Point position, string layer = "Main") where T : Tile {
+            return (T) this[layer, position.X, position.Y];
         }
 
-        public virtual void SetTile(Tile tile) {
-            try {
-                this.tiles[tile.Position.X, tile.Position.Y] = tile;
-            } catch {
-                throw new WorldException($"Illegal Set Tile at {tile.Position}");
-            }
+        public void AddTile(Tile tile) {
+            this[tile.Layer.Name, tile.Position.X, tile.Position.Y] = tile;
         }
 
-        public virtual void RemoveTile(Point position) {
-            try {
-                this.tiles[position.X, position.Y] = null;
-            } catch {
-                throw new WorldException($"Illegal Remove Tile at {position}");
-            }
+        public void RemoveTile(Point position, string layer = "Main") {
+            this[layer, position.X, position.Y] = null;
         }
 
-        public virtual void RemoveTile(Tile tile) {
-            this.RemoveTile(tile.Position);
+        public void RemoveTile(Tile tile) {
+            this.RemoveTile(tile.Position, tile.Layer.Name);
         }
 
-        public WorldCamera GetCamera() {
-            return this.camera;
+        public Tile this[string key, int x, int y] {
+            get => this.Tiles[key, x, y];
+            set => this.Tiles[key, x, y] = value;
         }
 
-        public virtual void Clear() {
-            for (int y = 0; y < this.Size.Y; y++) {
-                for (int x = 0; x < this.Size.X; x++) {
-                    this.tiles[x, y] = null;
-                }
-            }
+        public TileLayer this[string key] {
+            get => this.Layers[key];
+            set => this.Layers[key] = value;
         }
     }
 }

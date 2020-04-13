@@ -1,18 +1,20 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MonoWorld.Camera;
-using MonoWorld.Exceptions;
 
 namespace MonoWorld.World {
     public interface IWorld {
+        WorldCamera Camera { get; }
+        Dictionary<string, TileLayer> Layers { get; }
+        TileStorage Tiles { get; }
 
-        T GetTile<T>(Point position) where T : Tile;
+        void AddLayer(TileLayer layer);
 
-        void SetTile(Tile tile);
-
-        void RemoveTile(Point position);
-
+        T GetTile<T>(Point position, string layer) where T : Tile;
+        void AddTile(Tile tile);
+        void RemoveTile(Point position, string layer);
         void RemoveTile(Tile tile);
-
-        WorldCamera GetCamera();
+        Tile this[string key, int x, int y] { get; set; }
+        TileLayer this[string key] { get; }
     }
 }

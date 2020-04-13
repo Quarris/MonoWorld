@@ -12,7 +12,9 @@ using MonoWorld.World.Fixed;
 namespace MonoWorld.Demo {
     public class Board : FixedWorld {
 
-        public Board(int size, WorldCamera camera) : base(size, size, camera) { }
+        public Board(int size, WorldCamera camera) : base(new Point(size), camera) {
+            this.AddLayer(new TileLayer("Main", 0));
+        }
 
         public void Swipe(GameTime gameTime, Direction2 direction) {
             if (!direction.IsAdjacent()) {
@@ -61,7 +63,7 @@ namespace MonoWorld.Demo {
             }
 
             List<ActiveCoroutine> actives = new List<ActiveCoroutine>();
-            foreach (Number number in this.AllTiles<Number>()) {
+            foreach (Number number in this.Tiles["Main"].Cast<Number>().Where(n => n != null)) {
                 actives.Add(CoroutineHandler.Start(number.Animate(gameTime)));
             }
 
@@ -85,7 +87,7 @@ namespace MonoWorld.Demo {
                 }
 
                 int value = WorldInqDemo.Random.Next(1, 3);
-                this.SetTile(new Number(this, empty.Value, (int) Math.Pow(2, value)));
+                this.AddTile(new Number(this, empty.Value, (int) Math.Pow(2, value)));
             }
         }
 
@@ -105,6 +107,10 @@ namespace MonoWorld.Demo {
             }
 
             return empty[WorldInqDemo.Random.Next(empty.Count)];
+        }
+
+        public void Clear() {
+
         }
     }
 }

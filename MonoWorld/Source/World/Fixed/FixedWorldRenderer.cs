@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,14 +9,16 @@ namespace MonoWorld.World.Fixed {
 
         public void Draw(SpriteBatch batch, ContentManager content, IWorld world, Vector2 scale) {
             FixedWorld fixedWorld = (FixedWorld) world;
-            WorldCamera camera = fixedWorld.GetCamera();
+            WorldCamera camera = fixedWorld.Camera;
             batch.Begin(transformMatrix: camera?.TransformMatrix);
             this.DrawBackground(batch, content, fixedWorld, scale);
-            for (int y = 0; y < fixedWorld.Size.Y; y++) {
-                for (int x = 0; x < fixedWorld.Size.X; x++) {
-                    Point point = new Point(x, y);
-                    Tile tile = world.GetTile<Tile>(point);
-                    this.DrawTile(batch, content, fixedWorld, tile, point.ToVector2() * scale, scale);
+            foreach (Tile[,] tiles in world.Tiles.Ordered().Select(kv => kv.Value)) {
+                for (int y = 0; y < fixedWorld.Size.Y; y++) {
+                    for (int x = 0; x < fixedWorld.Size.X; x++) {
+                        Point point = new Point(x, y);
+                        Tile tile = tiles[x, y];
+                        this.DrawTile(batch, content, fixedWorld, tile, point.ToVector2() * scale, scale);
+                    }
                 }
             }
             batch.End();

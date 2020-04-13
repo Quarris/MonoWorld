@@ -9,21 +9,32 @@ namespace MonoWorld.World {
 
         public readonly IWorld World;
 
+        private TileLayer layer;
+        public TileLayer Layer {
+            get => this.layer;
+            set {
+                this.World.RemoveTile(this);
+                this.layer = value;
+                this.World.AddTile(this);
+            }
+        }
+
         private Point position = InvalidPoint;
         public Point Position {
             get => this.position;
             set {
                 this.World.RemoveTile(this);
                 this.position = value;
-                this.World.SetTile(this);
+                this.World.AddTile(this);
             }
         }
 
-        public Tile(IWorld world) {
+        public Tile(IWorld world, string layer = "Main") {
             this.World = world;
+            this.layer = world[layer];
         }
 
-        public Tile(IWorld world, Point pos) : this(world) {
+        public Tile(IWorld world, Point pos, string layer = "Main") : this(world, layer) {
             this.position = pos;
         }
 
