@@ -13,7 +13,7 @@ namespace MonoWorld.Demo {
     public class Board : FixedWorld {
 
         public Board(int size, WorldCamera camera) : base(new Point(size), camera) {
-            this.AddLayer(new TileLayer("Main", 0));
+            this.AddLayer(new TileLayer("Main", this.Size, 0));
         }
 
         public void Swipe(GameTime gameTime, Direction2 direction) {
@@ -63,7 +63,7 @@ namespace MonoWorld.Demo {
             }
 
             List<ActiveCoroutine> actives = new List<ActiveCoroutine>();
-            foreach (Number number in this.Tiles["Main"].Cast<Number>().Where(n => n != null)) {
+            foreach (Number number in this.Layers["Main"].Tiles.Cast<Number>().Where(n => n != null)) {
                 actives.Add(CoroutineHandler.Start(number.Animate(gameTime)));
             }
 
@@ -110,7 +110,9 @@ namespace MonoWorld.Demo {
         }
 
         public void Clear() {
-
+            foreach (Tile tile in this.Layers["Main"].Tiles) {
+                this.RemoveTile(tile);
+            }
         }
     }
 }

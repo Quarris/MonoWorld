@@ -7,16 +7,16 @@ using MonoWorld.Camera;
 namespace MonoWorld.World.Fixed {
     public abstract class FixedWorldRenderer : IWorldRenderer {
 
-        public void Draw(SpriteBatch batch, ContentManager content, IWorld world, Vector2 scale) {
-            FixedWorld fixedWorld = (FixedWorld) world;
+        public void Draw(SpriteBatch batch, ContentManager content, AbstractWorld abstractWorld, Vector2 scale) {
+            FixedWorld fixedWorld = (FixedWorld) abstractWorld;
             WorldCamera camera = fixedWorld.Camera;
             batch.Begin(transformMatrix: camera?.TransformMatrix);
             this.DrawBackground(batch, content, fixedWorld, scale);
-            foreach (Tile[,] tiles in world.Tiles.Ordered().Select(kv => kv.Value)) {
+            foreach (TileLayer layer in fixedWorld.Layers.Select(kv => kv.Value).OrderBy(kv => kv.Depth)) {
                 for (int y = 0; y < fixedWorld.Size.Y; y++) {
                     for (int x = 0; x < fixedWorld.Size.X; x++) {
                         Point point = new Point(x, y);
-                        Tile tile = tiles[x, y];
+                        Tile tile = layer[point];
                         this.DrawTile(batch, content, fixedWorld, tile, point.ToVector2() * scale, scale);
                     }
                 }

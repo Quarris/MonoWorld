@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MLEM.Extensions;
 using MonoGame.Extended;
 using MonoWorld.World;
+using MonoWorld.World.Fixed;
 
 namespace MonoWorld.Demo {
     public class Number : Tile {
@@ -17,7 +18,7 @@ namespace MonoWorld.Demo {
 
         public int Value;
 
-        public Number(IWorld world, Point pos, int value) : base(world, pos) {
+        public Number(FixedWorld world, Point pos, int value) : base(world, world.Layers["Main"], pos) {
             this.LastPosition = pos;
             this.Value = value;
         }

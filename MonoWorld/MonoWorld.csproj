@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net462</TargetFramework>
         <RootNamespace>MonoWorld</RootNamespace>
+        <LangVersion>8</LangVersion>
+        <TargetFramework>net462</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

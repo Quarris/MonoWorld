@@ -7,7 +7,7 @@ namespace MonoWorld.World {
 
         // Implement draw order where the dev can choose the order to draw the tiles in
         // RightDown, RightUp, LeftDown, LeftUp
-        void Draw(SpriteBatch batch, ContentManager content, IWorld world, Vector2 scale);
+        void Draw(SpriteBatch batch, ContentManager content, AbstractWorld world, Vector2 scale);
 
     }
 }

@@ -7,7 +7,7 @@ namespace MonoWorld.World {
 
         public static Point InvalidPoint = new Point(int.MaxValue, int.MaxValue);
 
-        public readonly IWorld World;
+        public readonly AbstractWorld World;
 
         private TileLayer layer;
         public TileLayer Layer {
@@ -29,12 +29,12 @@ namespace MonoWorld.World {
             }
         }
 
-        public Tile(IWorld world, string layer = "Main") {
+        public Tile(AbstractWorld world, TileLayer layer) {
             this.World = world;
-            this.layer = world[layer];
+            this.layer = layer;
         }
 
-        public Tile(IWorld world, Point pos, string layer = "Main") : this(world, layer) {
+        public Tile(AbstractWorld world, TileLayer layer, Point pos) : this(world, layer) {
             this.position = pos;
         }
 

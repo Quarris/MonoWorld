@@ -1,7 +1,5 @@
-using System;
-
-namespace MonoWorld.Exceptions {
-    public class WorldException : Exception {
+namespace MonoWorld.Exception {
+    public class WorldException : System.Exception {
 
         public WorldException() {
         }
